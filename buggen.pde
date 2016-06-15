@@ -1,15 +1,16 @@
-float inc;
+float inc, sWeight;
 
 
 
 void setup(){
   size(600,600);
   fill(0);
-  noStroke();
+  //noStroke();
   inc =.08;
   frameRate(10);
   noLoop();
-  
+  sWeight=3;
+  stroke(0);
 }
 
 void draw() {
@@ -29,9 +30,9 @@ void bug (int x, int y) {
   
   fill(0,255);
   
-  head (x, y - (th/2+hd), hd);      // a good spot for the head
+  head (x, y - (th/2+hd*1.5), hd);      // a good spot for the head
   thorax (x,y, th);
-  abdomen (x , y+(th/2+ab), ab);
+  abdomen (x , y+(th/2 +ab*1.125), ab);
 
   
   
@@ -42,26 +43,29 @@ void bug (int x, int y) {
 void head(float x, float y, int hd) {
   float rad, myScale;
   for (int i=-hd; i < hd; i++) {
+    strokeWeight(sWeight);
     rad = sqrt(hd*hd-i*i);
     myScale = noise(i*2*inc+hd);
-    ellipse(x,i+y,3*rad*myScale,2);
+    line(x+rad*myScale,i+y,x-rad*myScale,i+y);
   }
 }
 
 void abdomen(float x, float y, int ab) {
   float rad, myScale;
   for (int i=-ab; i < ab; i++) {
+    strokeWeight(sWeight);
     rad = sqrt(ab*ab-i*i);
     myScale = noise(i*.02+ab);
-    ellipse(x,i+y,2*rad*myScale,4);
+    line(x+rad*myScale,i+y,x-rad*myScale,i+y);
   }
 }
 
 void thorax(float x, float y, int th) {
+  
   float rad, myScale;
   for (int i=-th; i < th; i++) {
     rad = sqrt(th*th-i*i);
     myScale = noise(i*.04+th);
-    ellipse(x,i+y,4*rad*myScale,3);
+    line(x+rad*myScale,i+y,x-rad*myScale,i+y);
   }
 }
